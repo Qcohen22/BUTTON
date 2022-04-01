@@ -5,6 +5,9 @@ import React, { useState } from "react";
 const Home = () => {
 	const [item, setItem] = useState("");
 	const [todolist, setTodolist] = useState([]);
+	const button = (football) => {
+		setTodolist(todolist.filter((list) => list !== football));
+	};
 	return (
 		<>
 			<div>
@@ -12,7 +15,7 @@ const Home = () => {
 					type="text"
 					className="form-control"
 					placeholder="Username"
-					onCharge={(e) => setItem(e.target.value)}
+					onChange={(e) => setItem(e.target.value)}
 					value={item}
 				/>
 				<a
@@ -27,7 +30,17 @@ const Home = () => {
 				</a>
 			</div>
 			<ul>
-				<li>{item}</li>
+				{todolist.map((list, i) => (
+					<>
+						<li key={i}>{list}</li>
+						<button
+							onClick={() => {
+								button(list);
+							}}>
+							delete
+						</button>{" "}
+					</>
+				))}
 			</ul>
 		</>
 	);
