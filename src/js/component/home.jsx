@@ -6,7 +6,7 @@ const Home = () => {
 	const [item, setItem] = useState("");
 	const [todolist, setTodolist] = useState([]);
 	const button = (football) => {
-		setTodolist(todolist.filter((list) => list !== football));
+		setTodolist(todolist.filter((list, number) => number !== football));
 	};
 	return (
 		<>
@@ -20,7 +20,11 @@ const Home = () => {
 				/>
 				<a
 					onClick={() => {
-						setTodolist([...todolist, item]);
+						if (item !== "") {
+							setTodolist([...todolist, item]);
+							setItem("");
+						}
+
 						console.log(todolist);
 					}}
 					type="button"
@@ -35,7 +39,7 @@ const Home = () => {
 						<li key={i}>{list}</li>
 						<button
 							onClick={() => {
-								button(list);
+								button(i);
 							}}>
 							delete
 						</button>{" "}
